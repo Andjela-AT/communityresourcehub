@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CivicLink OS | About</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0b0f1a;
-  --panel:rgba(18,26,47,0.85);
+  --panel:rgba(18,26,47,0.6);
   --accent:#3df2c2;
   --accent2:#5aa9ff;
   --text:#e6ebff;
@@ -16,65 +16,52 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
 body{background:var(--bg);color:var(--text);overflow-x:hidden;}
-body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,var(--bg),#000);z-index:-3;}
-.grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;animation: movegrid 50s linear infinite;}
-@keyframes movegrid {0%{background-position:0 0;}100%{background-position:100px 100px;}}
-
-header{padding:2rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
+header{padding:2rem;display:flex;justify-content:space-between;align-items:center;}
 header h1{font-weight:800;}
-nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;}
+nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;transition:0.3s;}
 nav a:hover{color:var(--accent);}
 
-.panel{background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:2rem;margin:2rem auto;max-width:1000px;position:relative;}
-.timeline{position:relative;margin:2rem 0;}
-.timeline::before{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:0;
-  transform:translateX(-50%);
-  width:4px;
-  height:100%;
-  background:var(--accent2);
-}
-.timeline-item{
-  position:relative;
-  width:45%;
-  padding:1.5rem;
-  margin:2rem 0;
-  background:rgba(18,26,47,0.9);
-  border-radius:20px;
-  transition:transform 0.3s, box-shadow 0.3s;
-}
-.timeline-item:hover{transform:scale(1.05);box-shadow:0 0 20px var(--accent);}
-.timeline-item.left{left:0;}
-.timeline-item.right{left:55%;}
-.timeline-item::after{
-  content:"";
-  position:absolute;
-  width:20px;height:20px;
-  background:var(--accent);
-  border-radius:50%;
-  top:20px;
-  transform:translateX(-50%);
-}
-.timeline-item.left::after{right:-10px;}
-.timeline-item.right::after{left:-10px;}
+/* Particle background */
+#particles-js{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;}
 
-h2.section-title{margin-bottom:1rem;text-align:center;font-weight:800;}
+/* Sections */
+.section{padding:2rem;margin:2rem auto;max-width:1200px;}
+.section h2{margin-bottom:1rem;}
+.section p{color:var(--muted);line-height:1.6;}
+
+/* Glass cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2rem;}
+.card{background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:1.5rem;transition:transform 0.3s, box-shadow 0.3s;}
+.card:hover{transform:scale(1.05);box-shadow:0 0 20px var(--accent);}
+.card h3{margin-bottom:0.5rem;}
+.card p{color:var(--muted);}
+
+/* Contact panel */
+.contact{background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:2rem;margin-top:2rem;transition:transform 0.3s, box-shadow 0.3s;}
+.contact:hover{transform:scale(1.02);box-shadow:0 0 25px var(--accent2);}
+.contact input, .contact textarea, .contact button{
+  width:100%;padding:1rem;margin-top:1rem;border:none;border-radius:12px;background:rgba(0,0,0,0.2);color:var(--text);transition:0.3s;
+}
+.contact input:focus, .contact textarea:focus{box-shadow:0 0 15px var(--accent2);outline:none;}
+.contact button{background:var(--accent);color:var(--bg);font-weight:700;cursor:pointer;}
+.contact button:hover{background:var(--accent2);box-shadow:0 0 20px var(--accent2);transform:scale(1.05);}
+
+/* Fade-in scroll */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 1s ease-out, transform 1s ease-out;}
+.fade-in.show{opacity:1;transform:translateY(0);}
 
 footer{text-align:center;padding:2rem;color:var(--muted);}
 </style>
 </head>
 <body>
 
-<div class="grid-lines"></div>
+<div id="particles-js"></div>
 
 <header>
   <h1>About CivicLink OS</h1>
   <nav>
     <a href="index.html">Dashboard</a>
-    <a href="resources.html">Resource Network</a>
+    <a href="resources.html">Resources</a>
     <a href="submit.html">Add Resource</a>
     <a href="events.html">Events</a>
     <a href="volunteer.html">Volunteer</a>
@@ -82,35 +69,66 @@ footer{text-align:center;padding:2rem;color:var(--muted);}
   </nav>
 </header>
 
-<div class="panel">
-  <h2 class="section-title">How It Works</h2>
-  <p style="text-align:center;color:var(--muted);margin-bottom:2rem;">CivicLink OS connects community members with resources, events, and volunteer opportunities through a futuristic interactive platform.</p>
-  
-  <div class="timeline">
-    <div class="timeline-item left">
-      <h3>Research & Data Collection</h3>
-      <p>Our team gathers up-to-date information on local non-profits, events, and support programs to populate the CivicLink OS hub.</p>
+<div class="section fade-in">
+  <h2>Our Mission</h2>
+  <p>CivicLink OS is designed to connect residents with vital community resources, support services, and volunteer opportunities using a modern, futuristic platform. Our goal is to empower individuals and organizations to collaborate, contribute, and thrive together in a tech-forward environment.</p>
+</div>
+
+<div class="section fade-in">
+  <h2>Our Team</h2>
+  <div class="cards">
+    <div class="card fade-in">
+      <h3>Andjela Vojnovic</h3>
+      <p>Project Lead – Oversees development, design, and community outreach initiatives.</p>
     </div>
-    <div class="timeline-item right">
-      <h3>Interactive Resource Network</h3>
-      <p>Users can search, filter, and explore community resources with a dynamic and futuristic interface for easy access.</p>
+    <div class="card fade-in">
+      <h3>Team Member 2</h3>
+      <p>Web Developer – Responsible for interactive components and database integration.</p>
     </div>
-    <div class="timeline-item left">
-      <h3>User Contributions</h3>
-      <p>Community members can submit new resources, events, or volunteer opportunities for review and addition to the platform.</p>
-    </div>
-    <div class="timeline-item right">
-      <h3>Events & Volunteer Opportunities</h3>
-      <p>Real-time events with countdowns, sign-ups, and interactive dashboards help citizens engage with their community.</p>
-    </div>
-    <div class="timeline-item left">
-      <h3>Impact Visualization</h3>
-      <p>CivicLink OS provides a visual summary of participation, upcoming events, and community engagement in a high-tech format.</p>
+    <div class="card fade-in">
+      <h3>Team Member 3</h3>
+      <p>UI/UX Designer – Focuses on futuristic, engaging user interface and animations.</p>
     </div>
   </div>
 </div>
 
-<footer>Experience a futuristic community connection platform – CivicLink OS</footer>
+<div class="section fade-in">
+  <h2>Contact Us</h2>
+  <div class="contact fade-in">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea rows="4" placeholder="Your Message" required></textarea>
+    <button onclick="alert('Message sent! Thank you for reaching out.')">Send Message</button>
+  </div>
+</div>
+
+<footer>Powered by CivicLink OS – Futuristic Community Engagement</footer>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+particlesJS("particles-js", {
+  "particles": {
+    "number":{"value":80,"density":{"enable":true,"value_area":800}},
+    "color":{"value":"#3df2c2"},
+    "shape":{"type":"circle"},
+    "opacity":{"value":0.5,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0.1,"sync":false}},
+    "size":{"value":3,"random":true,"anim":{"enable":true,"speed":5,"size_min":0.1,"sync":false}},
+    "line_linked":{"enable":true,"distance":150,"color":"#3df2c2","opacity":0.2,"width":1},
+    "move":{"enable":true,"speed":2,"random":true,"straight":false,"out_mode":"out"}
+  },
+  "interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"}}},
+  "retina_detect":true
+});
+
+// Scroll fade-in
+const faders=document.querySelectorAll(".fade-in");
+window.addEventListener("scroll",()=>{
+  faders.forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 50){el.classList.add("show");}
+  });
+});
+</script>
 
 </body>
 </html>
