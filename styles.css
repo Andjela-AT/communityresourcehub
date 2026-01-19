@@ -1,0 +1,91 @@
+/* Root variables for colors */
+:root {
+  --accent: #4CAF50;    /* main button/card color */
+  --accent2: #45a049;   /* hover color */
+  --bg: #ffffff;        /* text color on buttons */
+  --card-bg: #f9f9f9;   /* card background */
+  --card-hover: #e0ffe0; /* card hover background */
+  --text-color: #333;   /* general text color */
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Container setups */
+.resources-container,
+.volunteer-container,
+.events-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+/* Card styling */
+.resource-card,
+.volunteer-card,
+.event-card {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 280px;
+  box-shadow: 0 4px 12px var(--shadow);
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* Card hover effect */
+.resource-card:hover,
+.volunteer-card:hover,
+.event-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 20px var(--shadow);
+  background: var(--card-hover);
+}
+
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button link styling */
+.button-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.button-link:hover {
+  background: var(--accent2);
+  box-shadow: 0 0 20px var(--accent2);
+  transform: scale(1.05);
+}
+
+/* Countdown timer styling */
+.countdown {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--accent2);
+}
+
+/* Optional: make <a> wrapping cards remove default link styles */
+.events-container a {
+  text-decoration: none;
+  color: inherit;
+}
