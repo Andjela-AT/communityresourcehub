@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CivicLink OS | Community Events</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CivicLink OS | Events</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0b0f1a;
-  --panel:rgba(18,26,47,0.85);
+  --panel:rgba(18,26,47,0.6);
   --accent:#3df2c2;
   --accent2:#5aa9ff;
   --text:#e6ebff;
@@ -16,35 +16,38 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
 body{background:var(--bg);color:var(--text);overflow-x:hidden;}
-body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,var(--bg),#000);z-index:-3;}
-.grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;animation: movegrid 50s linear infinite;}
-@keyframes movegrid {0%{background-position:0 0;}100%{background-position:100px 100px;}}
-
-header{padding:2rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
+header{padding:2rem;display:flex;justify-content:space-between;align-items:center;}
 header h1{font-weight:800;}
-nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;}
+nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;transition:0.3s;}
 nav a:hover{color:var(--accent);}
 
-.panel{background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:2rem;margin:2rem auto;max-width:1200px;}
-.events-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;}
-.event-card{background:rgba(18,26,47,0.9);border-radius:20px;padding:1.5rem;transition:transform 0.3s, box-shadow 0.3s;position:relative;}
+/* Particle background */
+#particles-js{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;}
+
+/* Event cards */
+.events-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin:2rem auto;max-width:1200px;}
+.event-card{background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:1.5rem;transition:transform 0.3s, box-shadow 0.3s;position:relative;}
 .event-card:hover{transform:scale(1.05);box-shadow:0 0 20px var(--accent);}
 .event-card h3{margin-bottom:0.5rem;}
-.event-card small{color:var(--muted);}
-.countdown{font-weight:800;color:var(--accent2);margin-top:1rem;}
+.event-card p{color:var(--muted);}
+.event-card .countdown{margin-top:1rem;font-weight:700;font-size:1.2rem;color:var(--accent2);}
+
+/* Fade-in scroll */
+.fade-in{opacity:0;transform:translateY(30px);transition:opacity 1s ease-out, transform 1s ease-out;}
+.fade-in.show{opacity:1;transform:translateY(0);}
 
 footer{text-align:center;padding:2rem;color:var(--muted);}
 </style>
 </head>
 <body>
 
-<div class="grid-lines"></div>
+<div id="particles-js"></div>
 
 <header>
-  <h1>Community Events</h1>
+  <h1>Upcoming Events</h1>
   <nav>
     <a href="index.html">Dashboard</a>
-    <a href="resources.html">Resource Network</a>
+    <a href="resources.html">Resources</a>
     <a href="submit.html">Add Resource</a>
     <a href="events.html">Events</a>
     <a href="volunteer.html">Volunteer</a>
@@ -52,54 +55,72 @@ footer{text-align:center;padding:2rem;color:var(--muted);}
   </nav>
 </header>
 
-<div class="panel">
-  <div class="events-grid">
-    <div class="event-card" data-date="2026-02-01T18:00:00">
-      <h3>Neighborhood Cleanup</h3>
-      <small>Join us for a community park cleanup</small>
-      <div class="countdown"></div>
-    </div>
-    <div class="event-card" data-date="2026-02-15T15:00:00">
-      <h3>Food Drive</h3>
-      <small>Support local families in need</small>
-      <div class="countdown"></div>
-    </div>
-    <div class="event-card" data-date="2026-03-05T10:00:00">
-      <h3>STEM Workshop</h3>
-      <small>Youth tech & robotics hands-on experience</small>
-      <div class="countdown"></div>
-    </div>
-    <div class="event-card" data-date="2026-03-20T12:00:00">
-      <h3>Community Health Fair</h3>
-      <small>Free screenings & wellness info</small>
-      <div class="countdown"></div>
-    </div>
+<div class="events-grid fade-in">
+  <div class="event-card fade-in" data-event="2026-02-15T10:00:00">
+    <h3>Community Clean-Up</h3>
+    <p>Join local volunteers to clean and beautify our parks.</p>
+    <div class="countdown" id="countdown1"></div>
+  </div>
+
+  <div class="event-card fade-in" data-event="2026-03-01T14:00:00">
+    <h3>STEM Workshop</h3>
+    <p>Hands-on STEM activities for middle and high school students.</p>
+    <div class="countdown" id="countdown2"></div>
+  </div>
+
+  <div class="event-card fade-in" data-event="2026-03-10T12:00:00">
+    <h3>Neighborhood Food Drive</h3>
+    <p>Help distribute food to families in need.</p>
+    <div class="countdown" id="countdown3"></div>
   </div>
 </div>
 
-<footer>CivicLink OS – Innovative community dashboard</footer>
+<footer>Powered by CivicLink OS – Futuristic Community Engagement</footer>
 
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-// Countdown timer
-function updateCountdown(){
-  const cards=document.querySelectorAll(".event-card");
-  cards.forEach(card=>{
-    const eventDate=new Date(card.getAttribute("data-date"));
+particlesJS("particles-js", {
+  "particles": {
+    "number":{"value":80,"density":{"enable":true,"value_area":800}},
+    "color":{"value":"#3df2c2"},
+    "shape":{"type":"circle"},
+    "opacity":{"value":0.5,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0.1,"sync":false}},
+    "size":{"value":3,"random":true,"anim":{"enable":true,"speed":5,"size_min":0.1,"sync":false}},
+    "line_linked":{"enable":true,"distance":150,"color":"#3df2c2","opacity":0.2,"width":1},
+    "move":{"enable":true,"speed":2,"random":true,"straight":false,"out_mode":"out"}
+  },
+  "interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"}}},
+  "retina_detect":true
+});
+
+// Countdown timers
+function countdownTimer(id, eventDate){
+  const countdownEl=document.getElementById(id);
+  function updateCountdown(){
     const now=new Date();
-    const diff=eventDate-now;
-    if(diff>0){
-      const days=Math.floor(diff/1000/60/60/24);
-      const hours=Math.floor((diff/1000/60/60)%24);
-      const mins=Math.floor((diff/1000/60)%60);
-      const secs=Math.floor((diff/1000)%60);
-      card.querySelector(".countdown").textContent=`${days}d ${hours}h ${mins}m ${secs}s`;
-    } else {
-      card.querySelector(".countdown").textContent="Event started!";
-    }
-  });
+    const diff=new Date(eventDate)-now;
+    if(diff<=0){countdownEl.textContent="Event Started!";return;}
+    const days=Math.floor(diff/(1000*60*60*24));
+    const hours=Math.floor((diff/(1000*60*60))%24);
+    const minutes=Math.floor((diff/1000/60)%60);
+    const seconds=Math.floor((diff/1000)%60);
+    countdownEl.textContent=`${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+  updateCountdown();
+  setInterval(updateCountdown,1000);
 }
-setInterval(updateCountdown,1000);
-updateCountdown();
+countdownTimer("countdown1","2026-02-15T10:00:00");
+countdownTimer("countdown2","2026-03-01T14:00:00");
+countdownTimer("countdown3","2026-03-10T12:00:00");
+
+// Scroll fade-in
+const faders=document.querySelectorAll(".fade-in");
+window.addEventListener("scroll",()=>{
+  faders.forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 50){el.classList.add("show");}
+  });
+});
 </script>
 
 </body>
