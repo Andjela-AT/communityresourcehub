@@ -1,140 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CivicLink OS | Volunteer</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0b0f1a;
-  --panel:rgba(18,26,47,0.6);
-  --accent:#3df2c2;
-  --accent2:#5aa9ff;
-  --text:#e6ebff;
-  --muted:#9aa4c7;
-}
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
-body{background:var(--bg);color:var(--text);overflow-x:hidden;}
-header{padding:2rem;display:flex;justify-content:space-between;align-items:center;}
-header h1{font-weight:800;}
-nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;transition:0.3s;}
-nav a:hover{color:var(--accent);}
-
-/* Particle background */
-#particles-js{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;}
-
-/* Volunteer grid */
-.volunteer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin:2rem auto;max-width:1200px;}
-.volunteer-card{background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:1.5rem;transition:transform 0.3s, box-shadow 0.3s;position:relative;}
-.volunteer-card:hover{transform:scale(1.05);box-shadow:0 0 20px var(--accent);}
-.volunteer-card h3{margin-bottom:0.5rem;}
-.volunteer-card p{color:var(--muted);}
-.volunteer-card button{
-  margin-top:1rem;padding:0.7rem 1rem;border:none;border-radius:12px;background:var(--accent);color:var(--bg);font-weight:700;cursor:pointer;transition:0.3s;
-}
-.volunteer-card button:hover{background:var(--accent2);box-shadow:0 0 20px var(--accent2);transform:scale(1.05);}
-
-/* Filter */
-.filter{margin-bottom:1.5rem;text-align:center;}
-.filter select{
-  padding:1rem;border-radius:12px;border:none;background:rgba(0,0,0,0.2);color:var(--text);font-size:1rem;
-}
-.filter select:focus{box-shadow:0 0 15px var(--accent2);outline:none;}
-
-/* Fade-in scroll */
-.fade-in{opacity:0;transform:translateY(30px);transition:opacity 1s ease-out, transform 1s ease-out;}
-.fade-in.show{opacity:1;transform:translateY(0);}
-footer{text-align:center;padding:2rem;color:var(--muted);}
-</style>
-</head>
-<body>
-
-<div id="particles-js"></div>
-
-<header>
-  <h1>Volunteer Opportunities</h1>
-  <nav>
-    <a href="index.html">Dashboard</a>
-    <a href="resources.html">Resources</a>
-    <a href="submit.html">Add Resource</a>
-    <a href="events.html">Events</a>
-    <a href="volunteer.html">Volunteer</a>
-    <a href="about.html">About</a>
-  </nav>
-</header>
-
-<div class="panel fade-in">
-  <h2>Filter Opportunities</h2>
-  <div class="filter">
-    <select id="volFilter" onchange="filterVolunteers()">
-      <option value="all">All Categories</option>
-      <option value="education">Education</option>
-      <option value="health">Health</option>
-      <option value="environment">Environment</option>
-      <option value="community">Community</option>
-    </select>
-  </div>
-  
-  <div class="volunteer-grid" id="volGrid">
-    <div class="volunteer-card fade-in" data-category="education">
-      <h3>STEM Mentorship</h3>
-      <p>Help students improve their STEM skills with hands-on guidance.</p>
-      <button>Sign Up</button>
+<section id="volunteer">
+  <h2>Volunteer Opportunities</h2>
+  <div class="volunteer-container">
+    <div class="volunteer-card fade-in">
+      <h3>STEM Mentorship Program</h3>
+      <p>Guide younger students through STEM projects and activities.</p>
+      <a href="https://example.com/volunteer/stem-mentorship" class="button-link">Sign Up</a>
     </div>
-    <div class="volunteer-card fade-in" data-category="health">
-      <h3>Community Clinic Helper</h3>
-      <p>Assist with checkups, vaccinations, and patient support.</p>
-      <button>Sign Up</button>
+
+    <div class="volunteer-card fade-in">
+      <h3>Community Tutoring</h3>
+      <p>Help students excel in science and math after school.</p>
+      <a href="https://example.com/volunteer/tutoring" class="button-link">Sign Up</a>
     </div>
-    <div class="volunteer-card fade-in" data-category="environment">
-      <h3>Park Restoration</h3>
-      <p>Plant trees, clean parks, and create sustainable community spaces.</p>
-      <button>Sign Up</button>
-    </div>
-    <div class="volunteer-card fade-in" data-category="community">
-      <h3>Food Bank Volunteer</h3>
-      <p>Help organize and distribute food to families in need.</p>
-      <button>Sign Up</button>
+
+    <div class="volunteer-card fade-in">
+      <h3>Event Support</h3>
+      <p>Assist with organizing and running STEM events.</p>
+      <a href="https://example.com/volunteer/events" class="button-link">Sign Up</a>
     </div>
   </div>
-</div>
-
-<footer>Powered by CivicLink OS – Futuristic Community Engagement</footer>
-
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-particlesJS("particles-js", {
-  "particles": {
-    "number":{"value":80,"density":{"enable":true,"value_area":800}},
-    "color":{"value":"#3df2c2"},
-    "shape":{"type":"circle"},
-    "opacity":{"value":0.5,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0.1,"sync":false}},
-    "size":{"value":3,"random":true,"anim":{"enable":true,"speed":5,"size_min":0.1,"sync":false}},
-    "line_linked":{"enable":true,"distance":150,"color":"#3df2c2","opacity":0.2,"width":1},
-    "move":{"enable":true,"speed":2,"random":true,"straight":false,"out_mode":"out"}
-  },
-  "interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"}}},
-  "retina_detect":true
-});
-
-// Scroll fade-in
-const faders=document.querySelectorAll(".fade-in");
-window.addEventListener("scroll",()=>{
-  faders.forEach(el=>{
-    const rect=el.getBoundingClientRect();
-    if(rect.top < window.innerHeight - 50){el.classList.add("show");}
-  });
-});
-
-// Filter volunteers
-function filterVolunteers(){
-  const category=document.getElementById("volFilter").value;
-  document.querySelectorAll(".volunteer-card").forEach(card=>{
-    card.style.display=(category==="all" || card.dataset.category===category)?"block":"none";
-  });
-}
-</script>
-
-</body>
-</html>
+</section>
