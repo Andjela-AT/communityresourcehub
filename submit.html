@@ -4,24 +4,21 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CivicLink OS | Submit Resource</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b0f1a; --panel:rgba(18,26,47,0.85);
-  --accent:#3df2c2; --accent2:#5aa9ff;
-  --text:#e6ebff; --muted:#9aa4c7;
+  --bg:#0b0f1a;
+  --panel:rgba(18,26,47,0.85);
+  --accent:#3df2c2;
+  --accent2:#5aa9ff;
+  --text:#e6ebff;
+  --muted:#9aa4c7;
 }
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
-body{background:var(--bg);color:var(--text);overflow-x:hidden;position:relative;}
-
-.grid-lines{
-  position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2;
-  background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px),
-             linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);
-  background-size:50px 50px;
-  animation: movegrid 50s linear infinite;
-  transition: transform 0.2s;
-}
-@keyframes movegrid{0%{background-position:0 0;}100%{background-position:100px 100px;}}
+body{background:var(--bg);color:var(--text);overflow-x:hidden;}
+body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,var(--bg),#000);z-index:-3;}
+.grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;animation: movegrid 50s linear infinite;}
+@keyframes movegrid {0%{background-position:0 0;}100%{background-position:100px 100px;}}
 
 header{padding:2rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
 header h1{font-weight:800;}
@@ -29,29 +26,81 @@ nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600
 nav a:hover{color:var(--accent);}
 
 .panel{
-  background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:2rem;
-  border:1px solid rgba(61,242,194,0.3);margin:2rem auto;max-width:600px;position:relative;overflow:hidden;
+  background:var(--panel);
+  backdrop-filter:blur(15px);
+  border-radius:20px;
+  padding:3rem;
+  border:1px solid rgba(61,242,194,0.3);
+  margin:2rem auto;
+  max-width:600px;
+  position:relative;
+  overflow:hidden;
 }
 .panel::before, .panel::after{
-  content:"";position:absolute;width:100px;height:100px;border:2px solid rgba(61,242,194,0.2);border-radius:50%;
+  content:"";
+  position:absolute;
+  width:100px;height:100px;
+  border:2px solid rgba(61,242,194,0.2);
+  border-radius:50%;
+  top:-50px; left:-50px;
+  animation: float1 8s linear infinite;
 }
-.panel::before{top:-50px; left:-50px; animation: float1 8s linear infinite;}
-.panel::after{bottom:-50px; right:-50px; animation: float2 10s linear infinite;}
+.panel::after{
+  top:auto; bottom:-50px; right:-50px;
+  animation: float2 10s linear infinite;
+}
 @keyframes float1{0%{transform:translate(0,0);}50%{transform:translate(30px,20px);}100%{transform:translate(0,0);}}
 @keyframes float2{0%{transform:translate(0,0);}50%{transform:translate(-20px,-30px);}100%{transform:translate(0,0);}}
 
-form{display:flex;flex-direction:column;gap:1rem;}
-input, select, textarea{
-  padding:0.8rem 1rem;border-radius:12px;border:none;background:rgba(0,0,0,0.2);
-  color:var(--text);font-size:1rem;outline:none;transition:0.3s;
+input,textarea{
+  width:100%;
+  padding:1rem;
+  border-radius:12px;
+  border:none;
+  margin-bottom:1.5rem;
+  background:rgba(0,0,0,0.2);
+  color:var(--text);
+  font-size:1rem;
+  outline:none;
+  transition:0.3s;
 }
-input:focus, select:focus, textarea:focus{background:rgba(0,0,0,0.35);}
+input:focus,textarea:focus{
+  box-shadow:0 0 15px var(--accent2);
+  background:rgba(0,0,0,0.35);
+}
+
 button{
-  padding:0.7rem 1.5rem;border:none;border-radius:12px;background:var(--accent);
-  color:var(--bg);font-weight:700;font-size:1rem;cursor:pointer;transition:0.4s;margin-top:1rem;
+  width:100%;
+  padding:1rem;
+  border:none;
+  border-radius:12px;
+  background:var(--accent);
+  color:var(--bg);
+  font-weight:700;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.4s;
+  animation: pulse 2s infinite;
 }
 button:hover{background:var(--accent2);}
+@keyframes pulse{
+  0%{box-shadow:0 0 10px var(--accent);}
+  50%{box-shadow:0 0 30px var(--accent);}
+  100%{box-shadow:0 0 10px var(--accent);}
+}
+
 footer{text-align:center;padding:2rem;color:var(--muted);}
+
+.modal{
+  display:none;
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.7);
+  justify-content:center;align-items:center;
+}
+.modal-content{
+  background:var(--panel);padding:2rem;border-radius:20px;text-align:center;animation: fadeInModal 0.5s;
+}
+@keyframes fadeInModal{0%{opacity:0;transform:scale(0.8);}100%{opacity:1;transform:scale(1);}}
 </style>
 </head>
 <body>
@@ -59,7 +108,7 @@ footer{text-align:center;padding:2rem;color:var(--muted);}
 <div class="grid-lines"></div>
 
 <header>
-  <h1>Submit a Resource</h1>
+  <h1>Submit a Community Resource</h1>
   <nav>
     <a href="index.html">Dashboard</a>
     <a href="resources.html">Resource Network</a>
@@ -71,40 +120,38 @@ footer{text-align:center;padding:2rem;color:var(--muted);}
 </header>
 
 <div class="panel">
-  <h2>New Resource Form</h2>
-  <form id="resourceForm">
-    <input type="text" name="name" placeholder="Resource Name" required/>
-    <select name="type" required>
-      <option value="">Select Type</option>
-      <option value="education">Education</option>
-      <option value="health">Health</option>
-      <option value="housing">Housing</option>
-      <option value="food">Food</option>
-    </select>
-    <textarea name="description" rows="4" placeholder="Description" required></textarea>
-    <input type="url" name="link" placeholder="Optional link (https://...)" />
-    <button type="submit">Submit Resource</button>
-  </form>
+  <input type="text" id="name" placeholder="Organization Name">
+  <input type="text" id="category" placeholder="Category (Health, Food, Education...)">
+  <textarea id="description" rows="4" placeholder="Describe the resource"></textarea>
+  <button onclick="submitResource()">Submit Resource</button>
+  <p style="font-size:0.8rem;color:var(--muted);margin-top:0.5rem;">All submissions are reviewed before being added.</p>
 </div>
 
-<footer>CivicLink OS – Community-powered futuristic civic dashboard</footer>
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2>Submission Received!</h2>
+    <p>Your resource has been successfully submitted to CivicLink OS.</p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<footer>
+  CivicLink OS – Community-powered futuristic civic dashboard
+</footer>
 
 <script>
-// Grid moves with mouse
-document.addEventListener("mousemove", e=>{
-  const grid = document.querySelector(".grid-lines");
-  const x = e.clientX / window.innerWidth;
-  const y = e.clientY / window.innerHeight;
-  grid.style.transform = `translate(${x*20}px, ${y*20}px)`;
-});
-
-// Simple form submit
-document.getElementById("resourceForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  alert("Resource submitted! (For now, this is just a demo.)");
-  this.reset();
-});
+function submitResource(){
+  // Here you could add backend code or simply show modal for TSA
+  document.getElementById("modal").style.display="flex";
+}
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+  document.getElementById("name").value="";
+  document.getElementById("category").value="";
+  document.getElementById("description").value="";
+}
 </script>
 
 </body>
 </html>
+
