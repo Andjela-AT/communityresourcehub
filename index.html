@@ -1,130 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>CivicLink OS | Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{
+:root {
   --bg:#0b0f1a;
-  --panel:rgba(18,26,47,0.6);
+  --panel:rgba(18,26,47,0.85);
   --accent:#3df2c2;
   --accent2:#5aa9ff;
   --text:#e6ebff;
   --muted:#9aa4c7;
 }
+
+/* Reset */
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
-body{background:var(--bg);color:var(--text);overflow-x:hidden;}
-header{padding:2rem;display:flex;justify-content:space-between;align-items:center;}
+body{background:#0b0f1a;color:var(--text);overflow-x:hidden;}
+
+/* Neon Grid Background */
+body::before {
+  content:"";
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:radial-gradient(circle at center,#0b0f1a,#000);
+  z-index:-3;
+}
+.grid-lines{
+  position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;
+  background:
+    linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);
+  background-size:50px 50px;
+  animation: movegrid 50s linear infinite;
+}
+@keyframes movegrid {0%{background-position:0 0;}100%{background-position:100px 100px;}}
+
+/* Header */
+header{padding:2rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
 header h1{font-weight:800;}
-nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;transition:0.3s;}
+nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;}
 nav a:hover{color:var(--accent);}
 
-.panel{background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:2rem;margin:2rem auto;max-width:1200px;box-shadow:0 0 20px rgba(61,242,194,0.2);transition:transform 0.3s;}
-.panel:hover{transform:translateY(-5px) scale(1.02);}
+/* Hero Section */
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:2rem;padding:3rem 2rem;}
+.panel{
+  background:var(--panel);
+  backdrop-filter:blur(15px);
+  border-radius:20px;
+  padding:2rem;
+  border:1px solid rgba(61,242,194,0.3);
+  transform:translateY(50px);opacity:0;
+  animation: slideIn 1s forwards;
+}
+.panel:nth-child(1){animation-delay:0.3s;}
+.panel:nth-child(2){animation-delay:0.6s;}
+@keyframes slideIn{to{transform:translateY(0);opacity:1;}}
 
-.dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:2rem;}
-.dashboard-card{background:rgba(18,26,47,0.85);border-radius:20px;padding:2rem;text-align:center;position:relative;transition:transform 0.3s, box-shadow 0.3s;}
-.dashboard-card:hover{transform:scale(1.05);box-shadow:0 0 20px var(--accent);}
-.dashboard-card h2{font-size:2rem;margin-bottom:0.5rem;}
-.dashboard-card p{color:var(--muted);}
+/* Features */
+.feature-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-top:1rem;}
+.feature{
+  border-left:4px solid var(--accent);
+  padding-left:1rem;
+  padding-top:0.5rem;
+  padding-bottom:0.5rem;
+  transition:transform 0.3s, box-shadow 0.3s;
+}
+.feature:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 15px var(--accent2);
+}
 
-footer{text-align:center;padding:2rem;color:var(--muted);position:relative;z-index:2;}
-
-/* Particle Background */
-#particles-js{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;}
-
-/* Glass hover effects */
-.glass:hover{box-shadow:0 0 40px var(--accent2), 0 0 80px var(--accent);}
-
-/* Scroll fade-in */
-.fade-in{opacity:0;transform:translateY(30px);transition:opacity 1s ease-out, transform 1s ease-out;}
-.fade-in.show{opacity:1;transform:translateY(0);}
+/* Footer */
+footer{text-align:center;padding:2rem;color:var(--muted);}
 </style>
 </head>
 <body>
 
-<div id="particles-js"></div>
+<div class="grid-lines"></div>
 
 <header>
   <h1>CivicLink OS</h1>
   <nav>
     <a href="index.html">Dashboard</a>
-    <a href="resources.html">Resources</a>
-    <a href="submit.html">Add Resource</a>
-    <a href="events.html">Events</a>
-    <a href="volunteer.html">Volunteer</a>
-    <a href="about.html">About</a>
+    <a href="resources.html">Resource Network</a>
+    <a href="submit.html">Add a Resource</a>
   </nav>
 </header>
 
-<div class="panel fade-in glass">
-  <h2>Welcome to CivicLink OS</h2>
-  <p>Connecting the community with resources, events, and opportunities in a futuristic, interactive dashboard.</p>
-</div>
-
-<div class="dashboard">
-  <div class="dashboard-card fade-in glass">
-    <h2 id="resourcesCount">0</h2>
-    <p>Community Resources</p>
+<section class="hero">
+  <div class="panel">
+    <h2>Community Infrastructure, Visualized</h2>
+    <p>
+      CivicLink OS models city systems through interactive dashboards. Access resources, connect services, and visualize your community in a futuristic interface.
+    </p>
   </div>
-  <div class="dashboard-card fade-in glass">
-    <h2 id="eventsCount">0</h2>
-    <p>Upcoming Events</p>
+  <div class="panel">
+    <h2>Highlighted Resources</h2>
+    <div class="feature-grid">
+      <div class="feature"><strong>Northwest Food Collective</strong><br><small>Food access programs</small></div>
+      <div class="feature"><strong>Community Health Bridge</strong><br><small>Affordable healthcare</small></div>
+      <div class="feature"><strong>Puget Sound Youth Tech</strong><br><small>STEM & workforce prep</small></div>
+    </div>
   </div>
-  <div class="dashboard-card fade-in glass">
-    <h2 id="volunteersCount">0</h2>
-    <p>Active Volunteers</p>
-  </div>
-</div>
+</section>
 
-<footer>CivicLink OS – The Future of Community Engagement</footer>
-
-<!-- Particles.js library -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-particlesJS("particles-js", {
-  "particles": {
-    "number": {"value":80,"density":{"enable":true,"value_area":800}},
-    "color":{"value":"#3df2c2"},
-    "shape":{"type":"circle","stroke":{"width":0,"color":"#000"},"polygon":{"nb_sides":5}},
-    "opacity":{"value":0.5,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0.1,"sync":false}},
-    "size":{"value":3,"random":true,"anim":{"enable":true,"speed":5,"size_min":0.1,"sync":false}},
-    "line_linked":{"enable":true,"distance":150,"color":"#3df2c2","opacity":0.2,"width":1},
-    "move":{"enable":true,"speed":2,"direction":"none","random":true,"straight":false,"out_mode":"out"}
-  },
-  "interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"}}},
-  "retina_detect":true
-});
-
-// Live counters
-function animateCount(id, end, duration){
-  let start=0;
-  let obj=document.getElementById(id);
-  let stepTime=Math.abs(Math.floor(duration/end));
-  let timer=setInterval(()=>{
-    start+=1;
-    obj.textContent=start;
-    if(start>=end) clearInterval(timer);
-  },stepTime);
-}
-
-animateCount("resourcesCount", 128, 2000);
-animateCount("eventsCount", 34, 2000);
-animateCount("volunteersCount", 76, 2000);
-
-// Scroll fade-in
-const faders=document.querySelectorAll(".fade-in");
-window.addEventListener("scroll",()=>{
-  faders.forEach(el=>{
-    const rect=el.getBoundingClientRect();
-    if(rect.top < window.innerHeight - 50){
-      el.classList.add("show");
-    }
-  });
-});
-</script>
+<footer>CivicLink OS © 2026 | Washington TSA Webmaster</footer>
 
 </body>
 </html>
