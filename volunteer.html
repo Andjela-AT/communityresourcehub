@@ -3,51 +3,55 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CivicLink OS | Volunteer Opportunities</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<title>CivicLink OS | Volunteer</title>
 <style>
 :root{
-  --bg:#0b0f1a;
-  --panel:rgba(18,26,47,0.85);
-  --accent:#3df2c2;
-  --accent2:#5aa9ff;
-  --text:#e6ebff;
-  --muted:#9aa4c7;
+  --bg:#0b0f1a; --panel:rgba(18,26,47,0.85);
+  --accent:#3df2c2; --accent2:#5aa9ff;
+  --text:#e6ebff; --muted:#9aa4c7;
 }
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
-body{background:var(--bg);color:var(--text);overflow-x:hidden;}
-body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,var(--bg),#000);z-index:-3;}
-.grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;animation: movegrid 50s linear infinite;}
-@keyframes movegrid {0%{background-position:0 0;}100%{background-position:100px 100px;}}
+body{background:var(--bg);color:var(--text);overflow-x:hidden;position:relative;}
+
+.grid-lines{
+  position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2;
+  background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px),
+             linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);
+  background-size:50px 50px;
+  animation: movegrid 50s linear infinite;
+  transition: transform 0.2s;
+}
+@keyframes movegrid{0%{background-position:0 0;}100%{background-position:100px 100px;}}
 
 header{padding:2rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
 header h1{font-weight:800;}
 nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;}
 nav a:hover{color:var(--accent);}
 
-.panel{background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:2rem;margin:2rem auto;max-width:1200px;}
-.filter{margin-bottom:1.5rem;}
-.filter select{padding:1rem;border-radius:12px;border:none;background:rgba(0,0,0,0.2);color:var(--text);font-size:1rem;}
-.filter select:focus{box-shadow:0 0 15px var(--accent2);outline:none;}
-
-.volunteer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;}
-.volunteer-card{background:rgba(18,26,47,0.9);border-radius:20px;padding:1.5rem;transition:transform 0.3s, box-shadow 0.3s;position:relative;}
-.volunteer-card:hover{transform:scale(1.05);box-shadow:0 0 20px var(--accent);}
-.volunteer-card h3{margin-bottom:0.5rem;}
-.volunteer-card small{color:var(--muted);}
-.volunteer-card button{
-  margin-top:1rem;
-  width:100%;
-  padding:0.8rem;
-  border:none;
-  border-radius:12px;
-  background:var(--accent);
-  color:var(--bg);
-  font-weight:700;
-  cursor:pointer;
-  transition:0.3s;
+.panel{
+  background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:2rem;
+  border:1px solid rgba(61,242,194,0.3);margin:2rem auto;max-width:900px;position:relative;overflow:hidden;
 }
-.volunteer-card button:hover{background:var(--accent2);}
+.panel::before, .panel::after{
+  content:"";position:absolute;width:100px;height:100px;border:2px solid rgba(61,242,194,0.2);border-radius:50%;
+}
+.panel::before{top:-50px; left:-50px; animation: float1 8s linear infinite;}
+.panel::after{bottom:-50px; right:-50px; animation: float2 10s linear infinite;}
+@keyframes float1{0%{transform:translate(0,0);}50%{transform:translate(30px,20px);}100%{transform:translate(0,0);}}
+@keyframes float2{0%{transform:translate(0,0);}50%{transform:translate(-20px,-30px);}100%{transform:translate(0,0);}}
+
+button{
+  padding:0.5rem 1rem;border:none;border-radius:12px;background:var(--accent);
+  color:var(--bg);font-weight:700;font-size:0.9rem;cursor:pointer;margin-right:0.5rem;transition:0.4s;
+}
+button:hover{background:var(--accent2);}
+button.active{box-shadow:0 0 15px var(--accent);}
+
+.volunteer-list{margin-top:2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;}
+.volunteer-card{
+  background:rgba(0,0,0,0.2);padding:1.5rem;border-radius:15px;transition:0.3s;
+}
+.volunteer-card:hover{background:rgba(0,0,0,0.35);}
 
 footer{text-align:center;padding:2rem;color:var(--muted);}
 </style>
@@ -69,52 +73,62 @@ footer{text-align:center;padding:2rem;color:var(--muted);}
 </header>
 
 <div class="panel">
-  <div class="filter">
-    <select id="categoryFilter" onchange="filterVolunteers()">
-      <option value="all">Filter by Category</option>
-      <option value="environment">Environment</option>
-      <option value="education">Education</option>
-      <option value="health">Health</option>
-      <option value="community">Community</option>
-    </select>
+  <h2>Filter by Category:</h2>
+  <div id="filters">
+    <button class="filter-btn active" onclick="filterVolunteers('all')">All</button>
+    <button class="filter-btn" onclick="filterVolunteers('education')">Education</button>
+    <button class="filter-btn" onclick="filterVolunteers('health')">Health</button>
+    <button class="filter-btn" onclick="filterVolunteers('environment')">Environment</button>
+    <button class="filter-btn" onclick="filterVolunteers('community')">Community</button>
   </div>
 
-  <div class="volunteer-grid">
-    <div class="volunteer-card" data-category="environment">
-      <h3>Park Cleanup Crew</h3>
-      <small>Feb 10 | 9:00 AM - 12:00 PM</small>
-      <button>Sign Up</button>
-    </div>
+  <div class="volunteer-list" id="volunteerList">
     <div class="volunteer-card" data-category="education">
-      <h3>STEM Mentorship</h3>
-      <small>Feb 15 | 3:00 PM - 5:00 PM</small>
-      <button>Sign Up</button>
+      <h3>Tutor Local Kids</h3>
+      <p>Help students with homework and skill-building.</p>
     </div>
     <div class="volunteer-card" data-category="health">
-      <h3>Community Health Fair</h3>
-      <small>Mar 5 | 10:00 AM - 2:00 PM</small>
-      <button>Sign Up</button>
-    </div>
-    <div class="volunteer-card" data-category="community">
-      <h3>Food Bank Assistance</h3>
-      <small>Mar 12 | 11:00 AM - 2:00 PM</small>
-      <button>Sign Up</button>
+      <h3>Community Health Assistant</h3>
+      <p>Assist clinics with health outreach and support.</p>
     </div>
     <div class="volunteer-card" data-category="environment">
-      <h3>Beach Cleanup</h3>
-      <small>Mar 20 | 9:00 AM - 1:00 PM</small>
-      <button>Sign Up</button>
+      <h3>Park Cleanup Crew</h3>
+      <p>Join local teams to clean and maintain parks.</p>
+    </div>
+    <div class="volunteer-card" data-category="community">
+      <h3>Food Bank Volunteer</h3>
+      <p>Help distribute food to families in need.</p>
+    </div>
+    <div class="volunteer-card" data-category="education">
+      <h3>Library Assistant</h3>
+      <p>Support library programs and reading activities.</p>
     </div>
   </div>
 </div>
 
-<footer>Volunteer & make a futuristic community impact with CivicLink OS</footer>
+<footer>CivicLink OS – Community-powered futuristic civic dashboard</footer>
 
 <script>
-function filterVolunteers(){
-  const cat=document.getElementById("categoryFilter").value;
-  document.querySelectorAll(".volunteer-card").forEach(card=>{
-    card.style.display=(cat==="all" || card.dataset.category===cat)?"block":"none";
+// Grid moves with mouse
+document.addEventListener("mousemove", e=>{
+  const grid = document.querySelector(".grid-lines");
+  const x = e.clientX / window.innerWidth;
+  const y = e.clientY / window.innerHeight;
+  grid.style.transform = `translate(${x*20}px, ${y*20}px)`;
+});
+
+// Filtering volunteers
+function filterVolunteers(category){
+  const cards = document.querySelectorAll(".volunteer-card");
+  document.querySelectorAll(".filter-btn").forEach(btn=>btn.classList.remove("active"));
+  event.target.classList.add("active");
+
+  cards.forEach(card=>{
+    if(category==="all" || card.dataset.category===category){
+      card.style.display="block";
+    }else{
+      card.style.display="none";
+    }
   });
 }
 </script>
