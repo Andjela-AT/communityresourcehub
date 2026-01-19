@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Community Resource Hub | Connect • Support • Thrive</title>
+  <style>
+    :root {
+      --primary: #1f4fd8;
+      --secondary: #00b894;
+      --accent: #feca57;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #2d3436;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(120deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      max-width: 700px;
+      margin: auto;
+      font-size: 1.1rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background: white;
+      padding: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.2rem;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    input, select, textarea, button {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover { background: #163bb0; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform .2s;
+    }
+
+    .card:hover { transform: translateY(-6px); }
+
+    .tag {
+      display: inline-block;
+      background: var(--accent);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: .8rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .spotlight {
+      border: 3px solid var(--secondary);
+    }
+
+    footer {
+      background: #111827;
+      color: #dfe6e9;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    footer p { max-width: 700px; margin: auto; }
+  </style>
+</head>
+<body>
+
+<header id="home">
+  <h1>Community Resource Hub</h1>
+  <p>A student-built digital platform empowering residents to discover, share, and connect with essential local resources.</p>
+</header>
+
+<nav>
+  <a href="#resources">Resources</a>
+  <a href="#spotlight">Spotlight</a>
+  <a href="#submit">Submit</a>
+  <a href="#about">About</a>
+</nav>
+
+<section id="resources">
+  <h2>Explore Community Resources</h2>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search by name or keyword..." onkeyup="filter()">
+    <select id="category" onchange="filter()">
+      <option value="">All Categories</option>
+      <option>Food Assistance</option>
+      <option>Health Services</option>
+      <option>Education</option>
+      <option>Housing</option>
+      <option>Mental Health</option>
+    </select>
+  </div>
+
+  <div class="grid" id="resourceGrid"></div>
+</section>
+
+<section id="spotlight">
+  <h2>Community Spotlights</h2>
+  <div class="grid">
+    <div class="card spotlight">
+      <span class="tag">Food Assistance</span>
+      <h3>Community Food Bank</h3>
+      <p>Ensuring no family goes hungry through free groceries and meal programs.</p>
+    </div>
+    <div class="card spotlight">
+      <span class="tag">Health</span>
+      <h3>Neighborhood Health Clinic</h3>
+      <p>Affordable medical care, preventative screenings, and wellness education.</p>
+    </div>
+    <div class="card spotlight">
+      <span class="tag">Education</span>
+      <h3>Youth Learning Center</h3>
+      <p>After‑school tutoring and mentorship for students of all backgrounds.</p>
+    </div>
+  </div>
+</section>
+
+<section id="submit">
+  <h2>Submit a New Resource</h2>
+  <form onsubmit="submitResource(event)">
+    <input required placeholder="Resource Name">
+    <input required placeholder="Category">
+    <textarea required placeholder="How does this resource help the community?"></textarea>
+    <button>Submit for Review</button>
+  </form>
+  <p id="message"></p>
+</section>
+
+<section id="about">
+  <h2>Why This Matters</h2>
+  <p>
+    This project was designed with Washington communities in mind—bridging technology and service. By organizing trusted resources into a single, accessible platform, the Community Resource Hub demonstrates how digital tools can strengthen equity, awareness, and civic connection.
+  </p>
+</section>
+
+<footer>
+  <p>Built for Washington TSA • Webmaster Event • 2026</p>
+</footer>
+
+<script>
+  const data = [
+    {name:"Community Food Bank", category:"Food Assistance", desc:"Free groceries and meals for families."},
+    {name:"Neighborhood Health Clinic", category:"Health Services", desc:"Low-cost medical care."},
+    {name:"Youth Learning Center", category:"Education", desc:"Tutoring and mentorship programs."},
+    {name:"Housing Support Network", category:"Housing", desc:"Housing placement and rent help."},
+    {name:"MindWell Counseling", category:"Mental Health", desc:"Accessible mental health support."}
+  ];
+
+  const grid = document.getElementById('resourceGrid');
+
+  function display(list) {
+    grid.innerHTML = '';
+    list.forEach(r => {
+      grid.innerHTML += `<div class='card'><span class='tag'>${r.category}</span><h3>${r.name}</h3><p>${r.desc}</p></div>`;
+    });
+  }
+
+  function filter() {
+    const s = document.getElementById('search').value.toLowerCase();
+    const c = document.getElementById('category').value;
+    display(data.filter(r =>
+      (r.name.toLowerCase().includes(s) || r.desc.toLowerCase().includes(s)) &&
+      (c === '' || r.category === c)
+    ));
+  }
+
+  function submitResource(e) {
+    e.preventDefault();
+    document.getElementById('message').textContent = 'Thank you! Your submission helps strengthen our community.';
+    e.target.reset();
+  }
+
+  display(data);
+</script>
+
+</body>
+</html>
