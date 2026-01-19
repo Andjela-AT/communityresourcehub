@@ -1,118 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CivicLink | Submit a Resource</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CivicLink OS | Submit Resource</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-main:#0b1020;
-      --bg-panel:#121a33;
-      --accent-1:#7df9ff;
-      --accent-3:#9b5cff;
-      --text-main:#e9ecf1;
-      --text-muted:#aab0c3;
+    :root{
+      --bg:#0b0f1a;
+      --panel:#121a2f;
+      --accent:#3df2c2;
+      --text:#e6ebff;
+      --muted:#9aa4c7;
     }
-
-    body {
-      margin:0;
-      font-family:Inter,system-ui,sans-serif;
-      background:radial-gradient(circle at top,#16224d,var(--bg-main));
-      color:var(--text-main);
-    }
-
-    nav {
-      background:rgba(11,16,32,.9);
-      padding:15px;
-      display:flex;
-      justify-content:center;
-      gap:30px;
-    }
-
-    nav a {
-      color:var(--accent-1);
-      text-decoration:none;
-      font-weight:600;
-    }
-
-    section {
-      max-width:700px;
-      margin:auto;
-      padding:80px 20px;
-    }
-
-    form {
-      background:var(--bg-panel);
-      padding:40px;
-      border-radius:25px;
-    }
-
-    input, textarea, button {
+    body{margin:0;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);}
+    header,footer{padding:2rem;}
+    nav a{margin-right:1.5rem;color:var(--muted);text-decoration:none;}
+    nav a:hover{color:var(--accent);}
+    .panel{background:var(--panel);border-radius:18px;padding:2rem;margin:2rem;}
+    input,textarea,button{
       width:100%;
-      padding:14px;
-      margin-bottom:20px;
+      padding:1rem;
       border-radius:10px;
       border:none;
-      font-size:1rem;
+      margin-bottom:1rem;
+      font-family:inherit;
     }
-
-    input, textarea {
-      background:#0e1530;
-      color:var(--text-main);
-    }
-
-    button {
-      background:linear-gradient(135deg,var(--accent-1),var(--accent-3));
-      color:#000;
+    button{
+      background:var(--accent);
       font-weight:700;
       cursor:pointer;
     }
-
-    footer {
-      text-align:center;
-      padding:40px;
-      color:var(--text-muted);
-    }
   </style>
 </head>
-
 <body>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="resources.html">Resource Hub</a>
-  <a href="submit.html">Submit Resource</a>
-</nav>
-
-<section>
+<header>
   <h1>Submit a Community Resource</h1>
-  <p style="color:var(--text-muted)">
-    Help strengthen our community by sharing trusted organizations or services.
-  </p>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="resources.html">Resource Network</a>
+    <a href="submit.html">Add a Resource</a>
+  </nav>
+</header>
 
-  <form onsubmit="submitForm(event)">
-    <input required placeholder="Resource Name">
-    <input required placeholder="Category (e.g., Health, Housing)">
-    <textarea required placeholder="Describe how this resource supports the community"></textarea>
-    <button>Submit Resource</button>
-  </form>
-
-  <p id="msg"></p>
-</section>
+<div class="panel">
+  <input placeholder="Organization Name">
+  <input placeholder="Category (Health, Food, Education...)">
+  <textarea rows="4" placeholder="Describe the resource"></textarea>
+  <button>Submit Resource</button>
+  <p><small>All submissions are reviewed to maintain data accuracy.</small></p>
+</div>
 
 <footer>
-  <p>CivicLink • Washington TSA Webmaster</p>
+  Community-powered civic infrastructure
 </footer>
-
-<script>
-  function submitForm(e) {
-    e.preventDefault();
-    document.getElementById("msg").textContent =
-      "Thank you! Your submission helps keep CivicLink community-driven.";
-    e.target.reset();
-  }
-</script>
 
 </body>
 </html>
