@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CivicLink OS | Community Events</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0f1a;
+  --panel:rgba(18,26,47,0.85);
+  --accent:#3df2c2;
+  --accent2:#5aa9ff;
+  --text:#e6ebff;
+  --muted:#9aa4c7;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
+body{background:var(--bg);color:var(--text);overflow-x:hidden;}
+body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,var(--bg),#000);z-index:-3;}
+.grid-lines{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;background:linear-gradient(rgba(61,242,194,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(61,242,194,0.05) 1px, transparent 1px);background-size:50px 50px;animation: movegrid 50s linear infinite;}
+@keyframes movegrid {0%{background-position:0 0;}100%{background-position:100px 100px;}}
+
+header{padding:2rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
+header h1{font-weight:800;}
+nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;}
+nav a:hover{color:var(--accent);}
+
+.panel{background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:2rem;margin:2rem auto;max-width:1200px;}
+.events-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;}
+.event-card{background:rgba(18,26,47,0.9);border-radius:20px;padding:1.5rem;transition:transform 0.3s, box-shadow 0.3s;position:relative;}
+.event-card:hover{transform:scale(1.05);box-shadow:0 0 20px var(--accent);}
+.event-card h3{margin-bottom:0.5rem;}
+.event-card small{color:var(--muted);}
+.countdown{font-weight:800;color:var(--accent2);margin-top:1rem;}
+
+footer{text-align:center;padding:2rem;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<div class="grid-lines"></div>
+
+<header>
+  <h1>Community Events</h1>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="resources.html">Resource Network</a>
+    <a href="submit.html">Add Resource</a>
+    <a href="events.html">Events</a>
+    <a href="volunteer.html">Volunteer</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<div class="panel">
+  <div class="events-grid">
+    <div class="event-card" data-date="2026-02-01T18:00:00">
+      <h3>Neighborhood Cleanup</h3>
+      <small>Join us for a community park cleanup</small>
+      <div class="countdown"></div>
+    </div>
+    <div class="event-card" data-date="2026-02-15T15:00:00">
+      <h3>Food Drive</h3>
+      <small>Support local families in need</small>
+      <div class="countdown"></div>
+    </div>
+    <div class="event-card" data-date="2026-03-05T10:00:00">
+      <h3>STEM Workshop</h3>
+      <small>Youth tech & robotics hands-on experience</small>
+      <div class="countdown"></div>
+    </div>
+    <div class="event-card" data-date="2026-03-20T12:00:00">
+      <h3>Community Health Fair</h3>
+      <small>Free screenings & wellness info</small>
+      <div class="countdown"></div>
+    </div>
+  </div>
+</div>
+
+<footer>CivicLink OS – Innovative community dashboard</footer>
+
+<script>
+// Countdown timer
+function updateCountdown(){
+  const cards=document.querySelectorAll(".event-card");
+  cards.forEach(card=>{
+    const eventDate=new Date(card.getAttribute("data-date"));
+    const now=new Date();
+    const diff=eventDate-now;
+    if(diff>0){
+      const days=Math.floor(diff/1000/60/60/24);
+      const hours=Math.floor((diff/1000/60/60)%24);
+      const mins=Math.floor((diff/1000/60)%60);
+      const secs=Math.floor((diff/1000)%60);
+      card.querySelector(".countdown").textContent=`${days}d ${hours}h ${mins}m ${secs}s`;
+    } else {
+      card.querySelector(".countdown").textContent="Event started!";
+    }
+  });
+}
+setInterval(updateCountdown,1000);
+updateCountdown();
+</script>
+
+</body>
+</html>
