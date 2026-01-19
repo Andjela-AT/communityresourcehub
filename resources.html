@@ -1,153 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CivicLink OS | Resource Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0b0f1a;
-  --panel:rgba(18,26,47,0.6);
-  --accent:#3df2c2;
-  --accent2:#5aa9ff;
-  --text:#e6ebff;
-  --muted:#9aa4c7;
-}
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif;}
-body{background:var(--bg);color:var(--text);overflow-x:hidden;}
-header{padding:2rem;display:flex;justify-content:space-between;align-items:center;}
-header h1{font-weight:800;}
-nav a{margin-left:1.5rem;color:var(--muted);text-decoration:none;font-weight:600;transition:0.3s;}
-nav a:hover{color:var(--accent);}
-
-/* Particle background */
-#particles-js{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;}
-
-.panel{background:var(--panel);backdrop-filter:blur(15px);border-radius:20px;padding:2rem;margin:2rem auto;max-width:1200px;box-shadow:0 0 20px rgba(61,242,194,0.2);transition:transform 0.3s;}
-.panel:hover{transform:translateY(-5px) scale(1.02);}
-
-/* Resource grid */
-.resource-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-top:2rem;}
-.resource-card{background:rgba(18,26,47,0.85);border-radius:20px;padding:1.5rem;transition:transform 0.3s, box-shadow 0.3s;position:relative;}
-.resource-card:hover{transform:scale(1.05);box-shadow:0 0 20px var(--accent);}
-.resource-card h3{margin-bottom:0.5rem;}
-.resource-card p{color:var(--muted);}
-.resource-card a{
-  display:inline-block;margin-top:1rem;padding:0.5rem 1rem;border-radius:12px;background:var(--accent);color:var(--bg);text-decoration:none;font-weight:700;transition:0.3s;
-}
-.resource-card a:hover{background:var(--accent2);}
-
-/* Filter */
-.filter{margin-bottom:1.5rem;}
-.filter input, .filter select{
-  padding:1rem;border-radius:12px;border:none;background:rgba(0,0,0,0.2);color:var(--text);font-size:1rem;
-}
-.filter input:focus, .filter select:focus{box-shadow:0 0 15px var(--accent2);outline:none;}
-
-/* Fade-in scroll */
-.fade-in{opacity:0;transform:translateY(30px);transition:opacity 1s ease-out, transform 1s ease-out;}
-.fade-in.show{opacity:1;transform:translateY(0);}
-footer{text-align:center;padding:2rem;color:var(--muted);}
-</style>
-</head>
-<body>
-
-<div id="particles-js"></div>
-
-<header>
-  <h1>Community Resource Hub</h1>
-  <nav>
-    <a href="index.html">Dashboard</a>
-    <a href="resources.html">Resources</a>
-    <a href="submit.html">Add Resource</a>
-    <a href="events.html">Events</a>
-    <a href="volunteer.html">Volunteer</a>
-    <a href="about.html">About</a>
-  </nav>
-</header>
-
-<div class="panel fade-in">
-  <h2>Explore Resources</h2>
-  <p>Search and filter community resources with an interactive futuristic interface.</p>
-  
-  <div class="filter">
-    <input type="text" id="searchInput" placeholder="Search resources..." onkeyup="filterResources()"/>
-    <select id="categoryFilter" onchange="filterResources()">
-      <option value="all">All Categories</option>
-      <option value="education">Education</option>
-      <option value="health">Health</option>
-      <option value="community">Community</option>
-      <option value="environment">Environment</option>
-    </select>
-  </div>
-
-  <div class="resource-grid" id="resourceGrid">
-    <div class="resource-card fade-in" data-category="education">
-      <h3>STEM Mentorship Program</h3>
-      <p>Provides local students guidance in STEM subjects and career pathways.</p>
-      <a href="#">Learn More</a>
+<section id="resources">
+  <h2>Resources</h2>
+  <div class="resources-container">
+    <div class="resource-card fade-in">
+      <h3>STEM Mentorship</h3>
+      <p>Connect with mentors to guide your STEM learning journey.</p>
+      <a href="https://example.com/stem-mentorship" target="_blank" class="button-link">Learn More</a>
     </div>
-    <div class="resource-card fade-in" data-category="health">
-      <h3>Community Health Clinic</h3>
-      <p>Free weekly checkups, vaccinations, and mental health support.</p>
-      <a href="#">Learn More</a>
+
+    <div class="resource-card fade-in">
+      <h3>Volunteer Opportunities</h3>
+      <p>Find ways to give back to your community through STEM projects.</p>
+      <a href="https://example.com/volunteer" target="_blank" class="button-link">Learn More</a>
     </div>
-    <div class="resource-card fade-in" data-category="environment">
-      <h3>Neighborhood Green Project</h3>
-      <p>Volunteer to plant trees, clean parks, and create sustainable spaces.</p>
-      <a href="#">Learn More</a>
-    </div>
-    <div class="resource-card fade-in" data-category="community">
-      <h3>Food Bank Assistance</h3>
-      <p>Support community members by helping organize and distribute food.</p>
-      <a href="#">Learn More</a>
+
+    <div class="resource-card fade-in">
+      <h3>Workshops & Events</h3>
+      <p>Join workshops and events to expand your knowledge and skills.</p>
+      <a href="https://example.com/events" target="_blank" class="button-link">Learn More</a>
     </div>
   </div>
-</div>
-
-<footer>Powered by CivicLink OS – Futuristic Community Engagement</footer>
-
-<!-- Particles.js library -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-particlesJS("particles-js", {
-  "particles": {
-    "number": {"value":80,"density":{"enable":true,"value_area":800}},
-    "color":{"value":"#3df2c2"},
-    "shape":{"type":"circle"},
-    "opacity":{"value":0.5,"random":true,"anim":{"enable":true,"speed":1,"opacity_min":0.1,"sync":false}},
-    "size":{"value":3,"random":true,"anim":{"enable":true,"speed":5,"size_min":0.1,"sync":false}},
-    "line_linked":{"enable":true,"distance":150,"color":"#3df2c2","opacity":0.2,"width":1},
-    "move":{"enable":true,"speed":2,"random":true,"straight":false,"out_mode":"out"}
-  },
-  "interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"repulse"},"onclick":{"enable":true,"mode":"push"}}},
-  "retina_detect":true
-});
-
-// Filter resources
-function filterResources(){
-  const search=document.getElementById("searchInput").value.toLowerCase();
-  const category=document.getElementById("categoryFilter").value;
-  document.querySelectorAll(".resource-card").forEach(card=>{
-    const text=card.querySelector("h3").textContent.toLowerCase()+card.querySelector("p").textContent.toLowerCase();
-    const matchCategory=(category==="all" || card.dataset.category===category);
-    const matchSearch=text.includes(search);
-    card.style.display=(matchCategory && matchSearch)?"block":"none";
-  });
-}
-
-// Scroll fade-in
-const faders=document.querySelectorAll(".fade-in");
-window.addEventListener("scroll",()=>{
-  faders.forEach(el=>{
-    const rect=el.getBoundingClientRect();
-    if(rect.top < window.innerHeight - 50){
-      el.classList.add("show");
-    }
-  });
-});
-</script>
-
-</body>
-</html>
+</section>
